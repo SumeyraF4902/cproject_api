@@ -53,4 +53,7 @@ public class Permission {
                 ", app_id=" + app_id +
                 '}';
     }
+
+    public Permission() {
+    }
 }
