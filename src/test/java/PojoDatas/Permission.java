@@ -12,13 +12,6 @@ public class Permission {
     String action;
     int app_id;
 
-
-    public Permission(int id,String resource, String action, int app_id) {
-        this.resource = resource;
-        this.action = action;
-        this.app_id = app_id;
-    }
-
     public int getId() {
         return id;
     }
@@ -53,16 +46,11 @@ public class Permission {
 
     @Override
     public String toString() {
-        return "Permission{" +
+        return "Permissions{" +
                 "id=" + id +
                 ", resource='" + resource + '\'' +
                 ", action='" + action + '\'' +
                 ", app_id=" + app_id +
                 '}';
-    }
-
-
-
-    public Permission() {
     }
 }

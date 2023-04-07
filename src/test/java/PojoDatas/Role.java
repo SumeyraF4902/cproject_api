@@ -73,8 +73,6 @@ public class Role {
         this.is_default = is_default;
     }
 
-
-
     @Override
     public String toString() {
         return "Roles{" +
@@ -85,11 +83,6 @@ public class Role {
                 ", permissions=" + permissions +
                 ", subscription_id='" + subscription_id + '\'' +
                 ", is_default=" + is_default +
-
                 '}';
-
-
-    }
-    public Role() {
     }
 }
