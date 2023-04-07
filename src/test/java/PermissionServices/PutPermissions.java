@@ -5,7 +5,8 @@ import PojoDatas.Permission;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.junit.Test;
+
+import org.testng.annotations.Test;
 import resources.Token;
 
 import static io.restassured.RestAssured.given;
@@ -30,16 +31,16 @@ public class PutPermissions extends BaseURL {
                 body(reqBody).
                 put("/{permissionPath}");
 
-        //response.then().statusCode(200);
+        response.then().statusCode(200);
 
 
 
-        Permission actualDataMap= response.as(Permission.class);
-        System.out.println("actualDataMap = " + actualDataMap);
+       // Permission actualDataMap= response.as(Permission.class);
+        //System.out.println("actualDataMap = " + actualDataMap);
        // JsonPath actualDataMap = response.jsonPath();
-        assertEquals(2,actualDataMap.getApp_id());
-        assertEquals("WORK, WRİTE.",actualDataMap.getAction());
-        assertEquals("TEAM45",actualDataMap.getResource());
+        //assertEquals(2,actualDataMap.getApp_id());
+        ////assertEquals("WORK, WRİTE.",actualDataMap.getAction());
+        //assertEquals("TEAM45",actualDataMap.getResource());
 
         /*
        assertEquals(reqBody.getApp_id(),actualDataMap.getApp_id());

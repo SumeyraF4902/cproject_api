@@ -1,14 +1,14 @@
 package PermissionServices;
 
 import BaseUrl.BaseURL;
-import PojoDatas.Permission;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import resources.Token;
-
 import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.core.IsEqual.equalTo;
+
+
 
 public class PostPermissions extends BaseURL {
     static int id;
@@ -22,24 +22,37 @@ public class PostPermissions extends BaseURL {
                "                \"action\": \"WORK, WRİTE.\",\n" +
                "                \"app_id\": 2\n" +
                "        }";
+
+
+
         Response response = given().spec(specification).contentType(ContentType.JSON).
                 when().
                 header("Authorization", Token.BO_token()).
                 body(reqBody).
                 post("/{permissionPath}");
 
-        response.then().assertThat().statusCode(201).
-                contentType(ContentType.JSON);
+       // response.then().assertThat().statusCode(201).
+         //       contentType(ContentType.JSON);
         response.prettyPrint();
-        Permission actualDataMap=response.as( Permission.class);
 
-        System.out.println("actualDataMap = " + actualDataMap);
+        response.then().assertThat().statusCode(201).contentType(ContentType.JSON);
+        response.then().assertThat().body("resource",equalTo("CREATE"));
+        response.then().assertThat().body("action",equalTo("WORK, WRİTE."));
+        response.then().assertThat().body("app_id",equalTo(2));
 
-        assertEquals(2,actualDataMap.getApp_id());
-        assertEquals("WORK, WRİTE.",actualDataMap.getAction());
-        assertEquals("CREATE",actualDataMap.getResource());
 
-        id=actualDataMap.getId();
+        //JsonPath jsonPath = response.jsonPath();
+        //System.out.println("actualDataMap = " + actualDataMap);
+
+
+
+
+       // assertEquals(2,actualDataMap.getApp_id());
+        //("WORK, WRİTE.",actualDataMap.getAction());
+      //  assertEquals("CREATE",actualDataMap.getResource());
+
+                  id=response.body().jsonPath().get("id");
+        System.out.println("id = " + id);
 
 
     }

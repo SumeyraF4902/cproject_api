@@ -12,9 +12,10 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.json.JSONArray;
-import org.json.JSONObject;
-import org.junit.Assert;
-import org.junit.Test;
+
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import resources.Token;
 import utilities.JsonToJava;
 
@@ -24,8 +25,8 @@ import java.util.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
+
 
 public class GetRol extends BaseURL {
     @Test
@@ -65,12 +66,14 @@ public class GetRol extends BaseURL {
                 + "{\"id\":25,\"name\":\"Warehouse Personnel\",\"app_id\":2},"
                 + "{\"id\":5,\"name\":\"Business Owner\",\"app_id\":2}]";
 
-        List<Object> expectedList = Arrays.asList(jsonString.split("\n"));
 
-        StringBuilder response1 = new StringBuilder(response.toString());
-        String jsonResponse = response1.toString();
-        JSONArray jsonArray = new JSONArray(jsonResponse);
-        System.out.println("jsonArray = " + jsonArray);
+        ;
+      //  List<Object> expectedList = Arrays.asList(jsonString.split("\n"));
+
+     //   StringBuilder response1 = new StringBuilder(response.toString());
+      //  String jsonResponse = response1.toString();
+      //  JSONArray jsonArray = new JSONArray(jsonResponse);
+      //  System.out.println("jsonArray = " + jsonArray);
 
         //    List<JSONObject> actualList = new ArrayList<>();
       //  for (int i = 0; i < jsonArray.length(); i++) {
@@ -79,7 +82,7 @@ public class GetRol extends BaseURL {
         //}
 
         //assertEquals(expectedList.size(), actualList.size());
-        System.out.println("expectedList = " + expectedList);
+       // System.out.println("expectedList = " + expectedList);
      //   System.out.println("actualList = " + actualList);
 
       /*  boolean isListsEqual = true;
@@ -128,18 +131,18 @@ public class GetRol extends BaseURL {
     @Test
     public void negatifGetRolAppId() {
 
-        //                       PathParam    ==> /role    YAPILACAK
+        //                       PathParam    ==> appId=3
 
-        specification.pathParam("rolePath", "role");
+        specification.pathParams("applicationPath", "application", "appIdPath", 3, "rolePath", "role");
         Response response1 = given().spec(specification).
+                contentType(ContentType.JSON).
                 when().
-                header("Authorization", Token.cstmr_token()).
-                get("/{rolePath}");
+                header("Authorization", Token.BO_token()).
+                get("/{applicationPath}/{appIdPath}/{rolePath}");
 
-        response1.then().assertThat().statusCode(200);
         response1.prettyPrint();
-      //  HashMap<String, Object> actualData = response1.as(HashMap.class);
-       // System.out.println("Actual Data: " + actualData);
+        response1.then().assertThat().statusCode(404);
+
 
 
     }
