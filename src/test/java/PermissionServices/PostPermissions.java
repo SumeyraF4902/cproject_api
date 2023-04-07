@@ -11,6 +11,7 @@ import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
 public class PostPermissions extends BaseURL {
+    static int id;
     @Test
     public void post() {
         specification.pathParam("permissionPath", "permission");
@@ -38,6 +39,7 @@ public class PostPermissions extends BaseURL {
         assertEquals("WORK, WRİTE.",actualDataMap.getAction());
         assertEquals("CREATE",actualDataMap.getResource());
 
+        id=actualDataMap.getId();
 
 
     }
