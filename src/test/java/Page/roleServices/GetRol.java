@@ -43,14 +43,8 @@ public class GetRol extends BaseURL {
                 contentType(ContentType.JSON);
 
 
-
-
-
-
-        }
-
         //   System.out.println(expectetData);
-      //  System.out.println("actualData = " + actualData);
+        //  System.out.println("actualData = " + actualData);
 
 
         String jsonString = "[{\"id\":17,\"name\":\"A3M_ADMIN\",\"app_id\":2},"
@@ -70,6 +64,33 @@ public class GetRol extends BaseURL {
                 + "{\"id\":24,\"name\":\"Warehouse Manager\",\"app_id\":2},"
                 + "{\"id\":25,\"name\":\"Warehouse Personnel\",\"app_id\":2},"
                 + "{\"id\":5,\"name\":\"Business Owner\",\"app_id\":2}]";
+
+        List<Object> expectedList = Arrays.asList(jsonString.split("\n"));
+
+        StringBuilder response1 = new StringBuilder(response.toString());
+        String jsonResponse = response1.toString();
+        JSONArray jsonArray = new JSONArray(jsonResponse);
+        System.out.println("jsonArray = " + jsonArray);
+
+        //    List<JSONObject> actualList = new ArrayList<>();
+      //  for (int i = 0; i < jsonArray.length(); i++) {
+        //    JSONObject jsonObject = jsonArray.getJSONObject(i);
+          //  actualList.add(jsonObject);
+        //}
+
+        //assertEquals(expectedList.size(), actualList.size());
+        System.out.println("expectedList = " + expectedList);
+     //   System.out.println("actualList = " + actualList);
+
+      /*  boolean isListsEqual = true;
+        for (int i = 0; i < expectedList.size(); i++) {
+            if (!actualList.contains(expectedList.get(i))) {
+                isListsEqual = false;
+                break;
+            }
+        }
+*/
+    }
 
       /*  JSONArray jsonArray = new JSONArray(jsonString);
         List<Map<String, Object>> expectetData = new ArrayList<>();
