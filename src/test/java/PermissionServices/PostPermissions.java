@@ -11,7 +11,16 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 
 public class PostPermissions extends BaseURL {
-    static int id;
+    private int id;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    //  static int id;
     @Test
     public void post() {
         specification.pathParam("permissionPath", "permission");
@@ -51,7 +60,7 @@ public class PostPermissions extends BaseURL {
         //("WORK, WRİTE.",actualDataMap.getAction());
       //  assertEquals("CREATE",actualDataMap.getResource());
 
-                  id=response.body().jsonPath().get("id");
+             id=response.body().jsonPath().get("id");
         System.out.println("id = " + id);
 
 

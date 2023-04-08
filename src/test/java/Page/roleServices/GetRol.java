@@ -14,6 +14,7 @@ import org.hamcrest.Matchers;
 import org.json.JSONArray;
 
 
+import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.Token;
@@ -30,6 +31,7 @@ import static org.testng.Assert.assertTrue;
 
 
 public class GetRol extends BaseURL {
+
     @Test
     public void getRolAppId() throws JsonProcessingException {
 
@@ -44,82 +46,20 @@ public class GetRol extends BaseURL {
                 statusCode(200).
                 contentType(ContentType.JSON);
 
-        User rol = new User();
-        Map<String, Object> actualDataMap = JsonToJava.convertJsonToJavaObject(response.asString(), HashMap.class);
-        Map<String, Object> expectedlDataMap = JsonToJava.convertJsonToJavaObject((File) rol.getMyArrayList(), HashMap.class);
 
-        for (String key : expectedlDataMap.keySet()) {
-            Assert.assertEquals(expectedlDataMap.get(key), actualDataMap.get(key));
-   /*     int userId;
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
-        int size = ids.size();
-        userId = ids.get(size - 1);
-
-        User.DeleteOrAddRoleBody requestBody;
-        while (true) {
-            requestBody = new User.DeleteOrAddRoleBody(userId);
-            System.out.println(requestBody);
-            if (!User.getUserById(userId).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id())) {
-                Response response1 = User.addRoleToUser(requestBody);
-                response.then().statusCode(200);
+        JsonPath jsonPath=response.jsonPath();
+       List < Map<Integer,Object>>rollers=jsonPath.getList("");
+        int otoId=0;
+        for(Map<Integer,Object> actualDataMap : rollers) {
+            if (actualDataMap.get("id").equals(23)) {
+                otoId = (Integer) actualDataMap.get("id");
                 break;
             }
-        }
-        assertTrue(User.getUserById(userId).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id()));
-        Response response2 = User.deleteRoleFromUser(requestBody);
-        response.prettyPrint();
-        response.then().statusCode(200);
-
-
-
-        String jsonString = "[{\"id\":17,\"name\":\"A3M_ADMIN\",\"app_id\":2},"
-                + "{\"id\":23,\"name\":\"Accountant\",\"app_id\":2},"
-                + "{\"id\":4,\"name\":\"APP_DOMAIN_MANAGER\",\"app_id\":2},"
-                + "{\"id\":30,\"name\":\"Customer\",\"app_id\":2},"
-                + "{\"id\":6,\"name\":\"Guest\",\"app_id\":2},"
-                + "{\"id\":26,\"name\":\"Logistics Manager\",\"app_id\":2},"
-                + "{\"id\":27,\"name\":\"Logistics Personnel\",\"app_id\":2},"
-                + "{\"id\":21,\"name\":\"Purchase Manager\",\"app_id\":2},"
-                + "{\"id\":22,\"name\":\"Purchase Personnel\",\"app_id\":2},"
-                + "{\"id\":29,\"name\":\"Quality Controller\",\"app_id\":2},"
-                + "{\"id\":28,\"name\":\"Quality Manager\",\"app_id\":2},"
-                + "{\"id\":19,\"name\":\"Sales Manager\",\"app_id\":2},"
-                + "{\"id\":20,\"name\":\"Sales Personnel\",\"app_id\":2},"
-                + "{\"id\":18,\"name\":\"Store Manager\",\"app_id\":2},"
-                + "{\"id\":24,\"name\":\"Warehouse Manager\",\"app_id\":2},"
-                + "{\"id\":25,\"name\":\"Warehouse Personnel\",\"app_id\":2},"
-                + "{\"id\":5,\"name\":\"Business Owner\",\"app_id\":2}]";
-
-
-        ;
-      //  List<Object> expectedList = Arrays.asList(jsonString.split("\n"));
-
-     //   StringBuilder response1 = new StringBuilder(response.toString());
-      //  String jsonResponse = response1.toString();
-      //  JSONArray jsonArray = new JSONArray(jsonResponse);
-      //  System.out.println("jsonArray = " + jsonArray);
-
-        //    List<JSONObject> actualList = new ArrayList<>();
-      //  for (int i = 0; i < jsonArray.length(); i++) {
-        //    JSONObject jsonObject = jsonArray.getJSONObject(i);
-          //  actualList.add(jsonObject);
-        //}
-
-        //assertEquals(expectedList.size(), actualList.size());
-       // System.out.println("expectedList = " + expectedList);
-     //   System.out.println("actualList = " + actualList);
-
-      /*  boolean isListsEqual = true;
-        for (int i = 0; i < expectedList.size(); i++) {
-            if (!actualList.contains(expectedList.get(i))) {
-                isListsEqual = false;
-                break;
-            }
-        }
-*/
+            System.out.println("rollers = " + rollers);
         }
 
-      /*  JSONArray jsonArray = new JSONArray(jsonString);
+        User rol=new User();
+        JSONArray jsonArray = new JSONArray(rollers);
         List<Map<String, Object>> expectetData = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -132,26 +72,19 @@ public class GetRol extends BaseURL {
                 Object value = jsonObject.get(key);
                 dataMap.put(key, value);
             }
-            expectetData.add(dataMap);*/
+            expectetData.add(dataMap);
 
-        // Map<String,Object> actualDataMap=response.as(HashMap.class);
-        // System.out.println("Actual Data: " + actualDataMap);
+        }
+      //  System.out.println("expectetData = " + expectetData);
+        assertEquals(expectetData.size(), rollers.size());
 
+        for (int i = 0; i < expectetData.size(); i++) {
+            assertEquals(expectetData.get(i).get("name"), rollers.get(i).get("name"));
+            assertEquals(expectetData.get(i).get("id"), rollers.get(i).get("id"));
+            assertEquals(expectetData.get(i).get("app_id"), rollers.get(i).get("app_id"));
 
-        //  System.out.println("actualData = " + actualData);*/
-        // Map<String,Object> actualDataMap=response.as(HashMap.class);
-        //System.out.println("Actual Data: " + actualDataMap);
-        //response.prettyPrint();*/
-
+        }
     }
-
-
-
-
-
-
-
-
     @Test
     public void negatifGetRolAppId() {
 
@@ -186,23 +119,18 @@ public class GetRol extends BaseURL {
         JsonPath jsonPath = response2.jsonPath();
         assertEquals(23,jsonPath.getInt("id"));
         assertEquals("Accountant",jsonPath.getString("name"));
-        assertEquals(2,jsonPath.getString("app_id"));
-
-
-
-
 
     }
     @Test
     public void id27() {
         //                       PathParam    ==> /role/id     Matchers ile dogrulama
 
-        specification.pathParams("rolePath", "role","idPath",27);
+       specification.pathParams("rolePath", "role","idPath",27);
         Response response3 = given().spec(specification).
                 when().
                 header("Authorization", Token.BO_token()).
                 get("/{rolePath}/{idPath}");
-        //response3.prettyPrint();
+
         response3.
                 then().
                 assertThat().

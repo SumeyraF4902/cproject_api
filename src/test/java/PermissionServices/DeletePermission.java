@@ -9,14 +9,18 @@ import org.testng.annotations.Test;
 import resources.Token;
 
 import static io.restassured.RestAssured.given;
-
+import static io.restassured.RestAssured.post;
 
 
 public class DeletePermission extends BaseURL {
     @Test
     public void delete() {
         ///auth/api/permission/{id}
-        specification.pathParams("permissionPath", "permission", "idPath",647);
+
+        PostPermissions post = new PostPermissions();
+        // Burada post nesnesinin kimlik değerini alarak id değişkenine atayabilirsiniz.
+
+      specification.pathParams("permissionPath", "permission", "idPath",739);
         //Permission reqBody = new Permission(PostPermissions.id, "TEAM45", "WORK, WRİTE.", 2);
 
         Response response = given().spec(specification).contentType(ContentType.JSON).
@@ -25,6 +29,6 @@ public class DeletePermission extends BaseURL {
                 delete("/{permissionPath}/{idPath}");
 
         response.then().assertThat().statusCode(200);
-        //PostPermissions.id
+
     }
 }

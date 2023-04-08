@@ -72,7 +72,7 @@ public class User {
 
     }
 
-    public static Response updateUser(UpdateUser requestBody){
+    public static Response updateUser(UpdateUser requestBody) {
         return given()
                 .spec(specification)
                 .when()
@@ -167,8 +167,6 @@ public class User {
                 .body(cherrylist)
                 .post("/user/cherry-pick");
     }
-
-
 
 
     public int getId() {
@@ -376,10 +374,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-
-
 
 
     @Override
@@ -654,12 +648,14 @@ public class User {
                     ", organization_id:" + organization_id +
                     '}';
         }
+    }
 
-    }
-    public Map<Integer, String> getMyArrayList() {
-        return roleList;
-    }
 
 }
+
+
+
+
+
 
 
