@@ -13,14 +13,16 @@ import static io.restassured.RestAssured.post;
 
 
 public class DeletePermission extends BaseURL {
+    int id=PostPermissions.id;
     @Test
     public void delete() {
         ///auth/api/permission/{id}
 
-        PostPermissions post = new PostPermissions();
+
+
         // Burada post nesnesinin kimlik değerini alarak id değişkenine atayabilirsiniz.
 
-      specification.pathParams("permissionPath", "permission", "idPath",739);
+      specification.pathParams("permissionPath", "permission", "idPath",id);
         //Permission reqBody = new Permission(PostPermissions.id, "TEAM45", "WORK, WRİTE.", 2);
 
         Response response = given().spec(specification).contentType(ContentType.JSON).

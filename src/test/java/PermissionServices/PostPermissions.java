@@ -2,25 +2,23 @@ package PermissionServices;
 
 import BaseUrl.BaseURL;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import resources.Token;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 
 
 public class PostPermissions extends BaseURL {
-    private int id;
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public int getId() {
-        return id;
-    }
 
-    //  static int id;
+     static int id;
     @Test
     public void post() {
         specification.pathParam("permissionPath", "permission");
@@ -59,7 +57,8 @@ public class PostPermissions extends BaseURL {
        // assertEquals(2,actualDataMap.getApp_id());
         //("WORK, WRİTE.",actualDataMap.getAction());
       //  assertEquals("CREATE",actualDataMap.getResource());
-
+        JsonPath jsonPath = response.jsonPath();
+        Map<String, Object> teams = jsonPath.getMap("");
              id=response.body().jsonPath().get("id");
         System.out.println("id = " + id);
 
