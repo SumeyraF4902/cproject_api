@@ -26,6 +26,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 
 public class GetRol extends BaseURL {
@@ -43,9 +44,32 @@ public class GetRol extends BaseURL {
                 statusCode(200).
                 contentType(ContentType.JSON);
 
+        User rol = new User();
+        Map<String, Object> actualDataMap = JsonToJava.convertJsonToJavaObject(response.asString(), HashMap.class);
+        Map<String, Object> expectedlDataMap = JsonToJava.convertJsonToJavaObject((File) rol.getMyArrayList(), HashMap.class);
 
-        //   System.out.println(expectetData);
-        //  System.out.println("actualData = " + actualData);
+        for (String key : expectedlDataMap.keySet()) {
+            Assert.assertEquals(expectedlDataMap.get(key), actualDataMap.get(key));
+   /*     int userId;
+        List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
+        int size = ids.size();
+        userId = ids.get(size - 1);
+
+        User.DeleteOrAddRoleBody requestBody;
+        while (true) {
+            requestBody = new User.DeleteOrAddRoleBody(userId);
+            System.out.println(requestBody);
+            if (!User.getUserById(userId).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id())) {
+                Response response1 = User.addRoleToUser(requestBody);
+                response.then().statusCode(200);
+                break;
+            }
+        }
+        assertTrue(User.getUserById(userId).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id()));
+        Response response2 = User.deleteRoleFromUser(requestBody);
+        response.prettyPrint();
+        response.then().statusCode(200);
+
 
 
         String jsonString = "[{\"id\":17,\"name\":\"A3M_ADMIN\",\"app_id\":2},"
@@ -93,7 +117,7 @@ public class GetRol extends BaseURL {
             }
         }
 */
-    }
+        }
 
       /*  JSONArray jsonArray = new JSONArray(jsonString);
         List<Map<String, Object>> expectetData = new ArrayList<>();
@@ -115,11 +139,11 @@ public class GetRol extends BaseURL {
 
 
         //  System.out.println("actualData = " + actualData);*/
-       // Map<String,Object> actualDataMap=response.as(HashMap.class);
+        // Map<String,Object> actualDataMap=response.as(HashMap.class);
         //System.out.println("Actual Data: " + actualDataMap);
-        //response.prettyPrint();
+        //response.prettyPrint();*/
 
-
+    }
 
 
 
@@ -217,6 +241,7 @@ public class GetRol extends BaseURL {
         //   PathParam    ==> /role/id
 
         Response response5= null;
+
         specification.pathParams("rolePath", "role","idPath",10);
      try {
          response5 = given().spec(specification).

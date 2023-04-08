@@ -23,7 +23,7 @@ public class PutPermissions extends BaseURL {
     "action": "WORK, WRİTE.",
     "app_id": 2*/
         specification.pathParam("permissionPath", "permission");
-        Permission reqBody= new Permission(PostPermissions.id,"TEAM45","WORK, WRİTE.",2);
+        Permission reqBody= new Permission(727,"TEAM45","WORK, WRİTE.",2);
 
         Response response = given().spec(specification).contentType(ContentType.JSON).
                 when().

@@ -42,7 +42,7 @@ public class User {
     private boolean is_individual_membership;
     private String password;
     private static final ArrayList<Integer> roleIdList = new ArrayList<>(Arrays.asList(23, 5, 30, 26, 27, 21, 22, 29, 28, 19, 20, 18, 24, 25));
-    private final Map<Integer, String> roleList = new HashMap<>(Map.ofEntries(
+    private static Map<Integer, String> roleList = new HashMap<>(Map.ofEntries(
             Map.entry(23, "Accountant"), Map.entry(5, "Business Owner"), Map.entry(30, "Customer"),
             Map.entry(26, "Logistics Manager"), Map.entry(27, "Logistics Personnel"), Map.entry(21, "Purchase Manager"), Map.entry(22, "Purchase Personnel"),
             Map.entry(29, "Quality Controller"),
@@ -654,6 +654,10 @@ public class User {
                     ", organization_id:" + organization_id +
                     '}';
         }
+
+    }
+    public Map<Integer, String> getMyArrayList() {
+        return roleList;
     }
 
 }
